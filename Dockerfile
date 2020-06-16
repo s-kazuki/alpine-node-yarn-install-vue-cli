@@ -1,4 +1,4 @@
-FROM skazuki/alpine-node-yarn
+FROM skazuki/alpine-node
 
 LABEL maintainer="S-Kazuki<contact@revoneo.com>"
 
@@ -11,7 +11,6 @@ RUN yarn global add @vue/cli
 ONBUILD COPY package.json ${APP_ROOT}/
 ONBUILD COPY yarn.lock ${APP_ROOT}/
 
-ONBUILD RUN npm ci \
-  && npm cache clean --force
+ONBUILD RUN yarn install --frozen-lockfile --ignore-optional
 
 CMD ["yarn", "start"]
